@@ -27,24 +27,12 @@ function App() {
     'DA Gorilla.jpg'
   ]
 
-  // Swap two random images
-  function swapTwoRandomImages(array) {
+  // Swap two images at specific indices
+  function swapTwoImages(array, index1, index2) {
     const newArray = [...array]
-    const length = newArray.length
-
-    // Pick two random different indices
-    const index1 = Math.floor(Math.random() * length)
-    let index2 = Math.floor(Math.random() * length)
-
-    // Ensure index2 is different from index1
-    while (index2 === index1) {
-      index2 = Math.floor(Math.random() * length)
-    }
-
-    // Swap the two images
+    // Swap the two images at the specified indices
     ;[newArray[index1], newArray[index2]] = [newArray[index2], newArray[index1]]
-
-    return { newArray, indices: [index1, index2] }
+    return newArray
   }
 
   // Initial shuffle for variety
@@ -90,23 +78,25 @@ function App() {
   // Swap two random images every 5 seconds with fade transition
   useEffect(() => {
     const rotateTimer = setInterval(() => {
-      // Pick two random indices to fade out
-      const tempIndices = [
-        Math.floor(Math.random() * shuffledImages.length),
-        Math.floor(Math.random() * shuffledImages.length)
-      ]
+      if (shuffledImages.length === 0) return
+
+      // Pick two random different indices
+      const index1 = Math.floor(Math.random() * shuffledImages.length)
+      let index2 = Math.floor(Math.random() * shuffledImages.length)
 
       // Ensure they're different
-      while (tempIndices[0] === tempIndices[1]) {
-        tempIndices[1] = Math.floor(Math.random() * shuffledImages.length)
+      while (index2 === index1) {
+        index2 = Math.floor(Math.random() * shuffledImages.length)
       }
 
-      // Fade out the two selected images
-      setFadingIndices(tempIndices)
+      const indices = [index1, index2]
 
-      // Wait for fade out, then swap and fade in
+      // Fade out the two selected images
+      setFadingIndices(indices)
+
+      // Wait for fade out, then swap those exact images and fade in
       setTimeout(() => {
-        const { newArray, indices } = swapTwoRandomImages(shuffledImages)
+        const newArray = swapTwoImages(shuffledImages, index1, index2)
         setShuffledImages(newArray)
         setFadingIndices([])
       }, 800)
