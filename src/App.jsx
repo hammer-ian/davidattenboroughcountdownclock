@@ -5,6 +5,7 @@ function App() {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft())
   const [shuffledImages, setShuffledImages] = useState([])
   const [fadingIndices, setFadingIndices] = useState([])
+  const [isCelebrating, setIsCelebrating] = useState(false)
 
   // All images from the attenborough folder
   const images = [
@@ -105,8 +106,24 @@ function App() {
     return () => clearInterval(rotateTimer)
   }, [shuffledImages])
 
+  const triggerCelebration = () => {
+    setIsCelebrating(true)
+    // Auto-reset after 10 seconds
+    setTimeout(() => {
+      setIsCelebrating(false)
+    }, 10000)
+  }
+
+  const displayTime = isCelebrating
+    ? { days: 0, hours: 0, minutes: 0, seconds: 0 }
+    : timeLeft
+
   return (
-    <div className="image-grid">
+    <>
+      <div className="hero-banner">
+        <h1>David Attenborough 100th Birthday Countdown Clock</h1>
+      </div>
+      <div className="image-grid">
       {shuffledImages.map((image, index) => (
         <div
           key={index}
@@ -120,28 +137,43 @@ function App() {
       ))}
 
       <div className="countdown-clock">
-        <h1>David Attenborough's 100th Birthday</h1>
+        <h1>Countdown Clock!</h1>
+        {isCelebrating && (
+          <div className="celebration-message">
+            <h2>🎉 Happy 100th Birthday Sir David! 🎉</h2>
+            <p>Thank you for a century of wonder and inspiration!</p>
+          </div>
+        )}
         <div className="countdown">
           <div className="time-unit">
-            <span className="number">{timeLeft.days}</span>
+            <span className="number">{displayTime.days}</span>
             <span className="label">Days</span>
           </div>
           <div className="time-unit">
-            <span className="number">{timeLeft.hours}</span>
+            <span className="number">{displayTime.hours}</span>
             <span className="label">Hours</span>
           </div>
           <div className="time-unit">
-            <span className="number">{timeLeft.minutes}</span>
+            <span className="number">{displayTime.minutes}</span>
             <span className="label">Minutes</span>
           </div>
           <div className="time-unit">
-            <span className="number">{timeLeft.seconds}</span>
+            <span className="number">{displayTime.seconds}</span>
             <span className="label">Seconds</span>
           </div>
         </div>
         <p className="date">May 8, 2026</p>
+        {!isCelebrating && (
+          <button className="celebrate-button" onClick={triggerCelebration}>
+            🎂 Celebrate Now!
+          </button>
+        )}
       </div>
     </div>
+    <footer className="footer">
+      By Keira Hamilton
+    </footer>
+    </>
   )
 }
 
