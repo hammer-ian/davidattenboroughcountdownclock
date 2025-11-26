@@ -7,7 +7,6 @@ function App() {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft())
   const [shuffledImages, setShuffledImages] = useState([])
   const [fadingIndices, setFadingIndices] = useState([])
-  const [isCelebrating, setIsCelebrating] = useState(false)
 
   // All images from the attenborough folder
   const images = [
@@ -108,17 +107,9 @@ function App() {
     return () => clearInterval(rotateTimer)
   }, [shuffledImages])
 
-  const triggerCelebration = () => {
-    setIsCelebrating(true)
-    // Auto-reset after 10 seconds
-    setTimeout(() => {
-      setIsCelebrating(false)
-    }, 10000)
-  }
-
-  const displayTime = isCelebrating
-    ? { days: 0, hours: 0, minutes: 0, seconds: 0 }
-    : timeLeft
+  // Check if countdown has reached zero
+  const isCelebrating = timeLeft.days === 0 && timeLeft.hours === 0 &&
+                        timeLeft.minutes === 0 && timeLeft.seconds === 0
 
   const scrollToWishes = () => {
     const wishesSection = document.querySelector('.birthday-wishes');
@@ -161,28 +152,23 @@ function App() {
           )}
           <div className="countdown">
             <div className="time-unit">
-              <span className="number">{displayTime.days}</span>
+              <span className="number">{timeLeft.days}</span>
               <span className="label">Days</span>
             </div>
             <div className="time-unit">
-              <span className="number">{displayTime.hours}</span>
+              <span className="number">{timeLeft.hours}</span>
               <span className="label">Hours</span>
             </div>
             <div className="time-unit">
-              <span className="number">{displayTime.minutes}</span>
+              <span className="number">{timeLeft.minutes}</span>
               <span className="label">Minutes</span>
             </div>
             <div className="time-unit">
-              <span className="number">{displayTime.seconds}</span>
+              <span className="number">{timeLeft.seconds}</span>
               <span className="label">Seconds</span>
             </div>
           </div>
           <p className="date">May 8, 2026</p>
-          {!isCelebrating && (
-            <button className="celebrate-button" onClick={triggerCelebration}>
-              🎂 Celebrate Now!
-            </button>
-          )}
         </div>
       </div>
       <BirthdayWishes />
