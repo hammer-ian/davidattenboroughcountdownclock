@@ -35,9 +35,10 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           model: 'claude-sonnet-4-5-20250929',
           max_tokens: 60,
+          temperature: 1.0,
           messages: [{
             role: 'user',
-            content: `Write exactly one concise sentence (maximum 25 words) wishing Sir David Attenborough a happy 100th birthday, celebrating his nature legacy. Output ONLY the wish sentence - no preamble, no "Here's", no greeting, no explanation.`
+            content: `Write exactly one creative, unique sentence (maximum 25 words) wishing Sir David Attenborough a happy 100th birthday. Focus on ONE specific aspect: his voice, documentaries, wildlife passion, conservation work, curiosity, or impact on viewers. Be creative and vary your style - use different sentence structures, tones, and approaches each time. Output ONLY the wish sentence - no preamble, no "Here's", no explanation.`
           }]
         })
       });
