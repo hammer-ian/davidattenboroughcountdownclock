@@ -16,7 +16,33 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'POST') {
-      const { visitorName, theme, memory } = req.body;
+      const { visitorName, theme, memory, recaptchaToken } = req.body;
+
+      // Verify reCAPTCHA token
+      if (recaptchaToken) {
+        try {
+          const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY;
+          if (recaptchaSecret) {
+            const recaptchaResponse = await fetch(
+              `https://www.google.com/recaptcha/api/siteverify`,
+              {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `secret=${recaptchaSecret}&response=${recaptchaToken}`
+              }
+            );
+            const recaptchaData = await recaptchaResponse.json();
+
+            // Reject if reCAPTCHA fails or score is too low
+            if (!recaptchaData.success || recaptchaData.score < 0.5) {
+              return res.status(403).json({ error: 'reCAPTCHA verification failed' });
+            }
+          }
+        } catch (err) {
+          console.error('reCAPTCHA verification error:', err);
+          // Continue anyway if reCAPTCHA fails (graceful degradation)
+        }
+      }
 
       // Randomly select attributes for variety - more casual and relatable
       const tones = ['warm and friendly', 'casual and genuine', 'excited', 'grateful', 'nostalgic', 'simple and sweet'];

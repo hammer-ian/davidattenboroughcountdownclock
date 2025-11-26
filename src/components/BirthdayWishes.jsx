@@ -6,6 +6,7 @@ function BirthdayWishes() {
   const [visitorName, setVisitorName] = useState('');
   const [theme, setTheme] = useState('');
   const [memory, setMemory] = useState('');
+  const [honeypot, setHoneypot] = useState(''); // Honeypot field
   const [loading, setLoading] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState(null);
@@ -40,6 +41,27 @@ function BirthdayWishes() {
     setError(null);
 
     try {
+      // Honeypot check - if filled, it's a bot
+      if (honeypot) {
+        console.log('Bot detected via honeypot');
+        setGenerating(false);
+        return; // Silently fail for bots
+      }
+
+      // Session-based rate limiting
+      const wishesGenerated = parseInt(sessionStorage.getItem('wishes_generated') || '0', 10);
+      if (wishesGenerated >= 3) {
+        setError('You can generate up to 3 wishes per session. Refresh the page to generate more.');
+        setGenerating(false);
+        return;
+      }
+
+      // Get reCAPTCHA token
+      const recaptchaToken = await window.grecaptcha.execute(
+        window.RECAPTCHA_SITE_KEY,
+        { action: 'generate_wish' }
+      );
+
       const response = await fetch('/api/wishes', {
         method: 'POST',
         headers: {
@@ -48,7 +70,8 @@ function BirthdayWishes() {
         body: JSON.stringify({
           visitorName: visitorName.trim() || null,
           theme: theme || null,
-          memory: memory.trim() || null
+          memory: memory.trim() || null,
+          recaptchaToken
         })
       });
 
@@ -60,6 +83,9 @@ function BirthdayWishes() {
 
       // Add new wish to the top of the list
       setWishes([data.wish, ...wishes]);
+
+      // Increment session counter
+      sessionStorage.setItem('wishes_generated', (wishesGenerated + 1).toString());
 
       // Clear the form
       setVisitorName('');
@@ -142,6 +168,17 @@ function BirthdayWishes() {
               disabled={generating}
             />
           </div>
+
+          {/* Honeypot field - hidden from users */}
+          <input
+            type="text"
+            name="website"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+            style={{ display: 'none' }}
+            tabIndex="-1"
+            autoComplete="off"
+          />
 
           <button
             type="submit"
