@@ -315,7 +315,9 @@ body, html {
 
   .hero-banner {
     width: 90%;
+    margin: 0 auto;
     padding: 1rem 1.5rem;
+    text-align: center;
   }
 
   .hero-banner h1 {
