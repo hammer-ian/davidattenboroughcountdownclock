@@ -34,10 +34,10 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           model: 'claude-sonnet-4-5-20250929',
-          max_tokens: 200,
+          max_tokens: 60,
           messages: [{
             role: 'user',
-            content: `Generate a heartfelt, creative birthday wish for Sir David Attenborough's 100th birthday. The wish should celebrate his incredible legacy in natural history broadcasting, his passion for wildlife conservation, and his impact on educating generations about our planet. Keep it to 2-3 sentences, warm and inspirational. Make each wish unique and personal.`
+            content: `Write exactly one concise sentence (maximum 25 words) wishing Sir David Attenborough a happy 100th birthday, celebrating his nature legacy. Output ONLY the wish sentence - no preamble, no "Here's", no greeting, no explanation.`
           }]
         })
       });
