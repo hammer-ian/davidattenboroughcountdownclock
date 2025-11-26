@@ -18,14 +18,17 @@ You'll receive:
 
 ## Step 2: Update Frontend
 
-In `public/index.html`, replace both instances of `REPLACE_WITH_YOUR_SITE_KEY` with your **Site Key**:
+In `index.html` (at the project root), add the reCAPTCHA scripts to the `<head>` section with your **Site Key**:
 
 ```html
+<!-- reCAPTCHA v3 -->
 <script src="https://www.google.com/recaptcha/api.js?render=YOUR_SITE_KEY_HERE"></script>
 <script>
   window.RECAPTCHA_SITE_KEY = 'YOUR_SITE_KEY_HERE';
 </script>
 ```
+
+✅ **Already completed** - Your Site Key has been added to index.html
 
 ## Step 3: Add Secret Key to Vercel
 
