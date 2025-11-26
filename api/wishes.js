@@ -16,11 +16,11 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'POST') {
-      const { visitorName, theme } = req.body;
+      const { visitorName, theme, memory } = req.body;
 
-      // Randomly select additional attributes to add variety
-      const tones = ['poetic', 'heartfelt', 'playful', 'reflective', 'joyful', 'reverent'];
-      const styles = ['use a nature metaphor', 'be direct and sincere', 'use vivid imagery', 'be brief and powerful', 'express personal impact'];
+      // Randomly select attributes for variety - more casual and relatable
+      const tones = ['warm and friendly', 'casual and genuine', 'excited', 'grateful', 'nostalgic', 'simple and sweet'];
+      const styles = ['keep it conversational', 'be authentic', 'sound like a real person', 'be relatable'];
       const randomTone = tones[Math.floor(Math.random() * tones.length)];
       const randomStyle = styles[Math.floor(Math.random() * styles.length)];
 
@@ -44,7 +44,9 @@ export default async function handler(req, res) {
           temperature: 1.0,
           messages: [{
             role: 'user',
-            content: `Write one birthday wish for Sir David Attenborough's 100th birthday (max 20 words). Focus on: ${theme}. Tone: ${randomTone}. Style: ${randomStyle}. Avoid common phrases like "thank you for" or "taught us to". Output ONLY the wish - no preamble, no explanation.`
+            content: memory
+              ? `Write a casual, heartfelt birthday wish for Sir David Attenborough's 100th (max 20 words). Focus on: ${theme}. Personal context: "${memory}". Tone: ${randomTone}. ${randomStyle}. Write like a real person would - warm but not overly poetic. Output ONLY the wish.`
+              : `Write a casual, heartfelt birthday wish for Sir David Attenborough's 100th (max 20 words). Focus on: ${theme}. Tone: ${randomTone}. ${randomStyle}. Write like a real person would - warm but not overly profound. Output ONLY the wish.`
           }]
         })
       });

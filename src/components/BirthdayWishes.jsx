@@ -5,6 +5,7 @@ function BirthdayWishes() {
   const [wishes, setWishes] = useState([]);
   const [visitorName, setVisitorName] = useState('');
   const [theme, setTheme] = useState('');
+  const [memory, setMemory] = useState('');
   const [loading, setLoading] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState(null);
@@ -46,7 +47,8 @@ function BirthdayWishes() {
         },
         body: JSON.stringify({
           visitorName: visitorName.trim() || null,
-          theme: theme || null
+          theme: theme || null,
+          memory: memory.trim() || null
         })
       });
 
@@ -62,6 +64,7 @@ function BirthdayWishes() {
       // Clear the form
       setVisitorName('');
       setTheme('');
+      setMemory('');
     } catch (err) {
       console.error('Error generating wish:', err);
       setError('Unable to generate wish. Please try again.');
@@ -111,6 +114,21 @@ function BirthdayWishes() {
               <option value="wonder">The wonder he brings to viewers</option>
               <option value="dedication">His lifetime dedication to our planet</option>
             </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="memory-input" className="form-label">Add a personal touch (optional)</label>
+            <input
+              id="memory-input"
+              type="text"
+              placeholder="e.g., 'watched Planet Earth with my kids' or 'inspired me to become a biologist'"
+              value={memory}
+              onChange={(e) => setMemory(e.target.value)}
+              maxLength={80}
+              className="name-input"
+              disabled={generating}
+            />
+            <span className="input-hint">{memory.length}/80 characters</span>
           </div>
 
           <div className="form-group">

@@ -73,6 +73,12 @@
   cursor: not-allowed;
 }
 
+.input-hint {
+  font-size: 0.85rem;
+  color: #999;
+  text-align: right;
+}
+
 .generate-button {
   padding: 1rem 2rem;
   font-size: 1.1rem;
