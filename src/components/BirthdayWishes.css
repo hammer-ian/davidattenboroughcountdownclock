@@ -214,6 +214,18 @@
     padding: 1.5rem;
   }
 
+  .theme-select,
+  .name-input {
+    background-color: white;
+    color: #333;
+  }
+
+  .theme-select::placeholder,
+  .name-input::placeholder {
+    color: #888;
+    opacity: 1;
+  }
+
   .wishes-grid {
     grid-template-columns: 1fr;
   }
