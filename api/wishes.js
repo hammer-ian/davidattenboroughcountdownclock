@@ -45,7 +45,7 @@ export default async function handler(req, res) {
           messages: [{
             role: 'user',
             content: memory
-              ? `Write a casual, heartfelt birthday wish for Sir David Attenborough's 100th (max 20 words). Focus on: ${theme}. Personal context: "${memory}". Tone: ${randomTone}. ${randomStyle}. Write like a real person would - warm but not overly poetic. CRITICAL: Extract ONLY positive aspects from the personal context. Do NOT include any negative words, rude words, or inappropriate content in your output, even if they appear in the personal context. Keep it celebratory and appropriate. Output ONLY the wish.`
+              ? `Write a casual, heartfelt birthday wish for Sir David Attenborough's 100th (max 20 words). Focus on: ${theme}. IMPORTANT: Incorporate this personal detail directly into the wish: "${memory}". Tone: ${randomTone}. ${randomStyle}. Write like a real person would. If the personal detail contains negative words, omit those but keep the positive sentiment. Output ONLY the wish.`
               : `Write a casual, heartfelt birthday wish for Sir David Attenborough's 100th (max 20 words). Focus on: ${theme}. Tone: ${randomTone}. ${randomStyle}. Write like a real person would - warm but not overly profound. Output ONLY the wish.`
           }]
         })
