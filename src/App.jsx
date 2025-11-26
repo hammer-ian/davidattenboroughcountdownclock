@@ -120,6 +120,13 @@ function App() {
     ? { days: 0, hours: 0, minutes: 0, seconds: 0 }
     : timeLeft
 
+  const scrollToWishes = () => {
+    const wishesSection = document.querySelector('.birthday-wishes');
+    if (wishesSection) {
+      wishesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <>
       <div className="hero-banner">
@@ -171,6 +178,11 @@ function App() {
               🎂 Celebrate Now!
             </button>
           )}
+        </div>
+
+        <div className="scroll-indicator" onClick={scrollToWishes}>
+          <span className="scroll-indicator-text">Share a Birthday Wish</span>
+          <span className="scroll-arrow">↓</span>
         </div>
       </div>
       <BirthdayWishes />

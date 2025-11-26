@@ -63,7 +63,7 @@ export default async function handler(req, res) {
       // Save wish to database
       const result = await sql`
         INSERT INTO wishes (message, visitor_name)
-        VALUES (${generatedWish}, ${visitorName || null})
+        VALUES (${generatedWish}, ${visitorName || 'Anon'})
         RETURNING id, message, visitor_name, created_at
       `;
 
