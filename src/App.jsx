@@ -129,9 +129,11 @@ function App() {
 
   return (
     <>
-      <div className="hero-banner">
-        <h1>David Attenborough 100th Birthday Countdown Clock</h1>
-        <VisitorCounter />
+      <div className="hero-section">
+        <div className="hero-banner">
+          <h1>David Attenborough 100th Birthday Countdown Clock</h1>
+          <VisitorCounter />
+        </div>
       </div>
       <div className="image-grid">
         {shuffledImages.map((image, index) => (

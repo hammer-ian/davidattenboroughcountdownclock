@@ -137,11 +137,14 @@ body, html {
   grid-row: span 1;
 }
 
+.hero-section {
+  background: linear-gradient(135deg, #1a3a0f 0%, #2d5016 100%);
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
 .hero-banner {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  display: inline-block;
   background: rgba(0, 0, 0, 0.85);
   color: white;
   padding: 1.5rem 3rem;
@@ -149,7 +152,6 @@ body, html {
   text-align: center;
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-  z-index: 100;
 }
 
 .hero-banner h1 {
@@ -291,31 +293,40 @@ body, html {
 /* Scroll indicator */
 .scroll-indicator {
   position: absolute;
-  bottom: 20px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 101;
   animation: bounce 2s infinite;
   cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.scroll-indicator:hover {
+  animation: none;
+  transform: translateX(-50%) scale(1.05);
 }
 
 .scroll-indicator-text {
   display: block;
   color: white;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: bold;
   margin-bottom: 0.5rem;
+  box-shadow: 0 4px 15px rgba(74, 222, 128, 0.4);
   backdrop-filter: blur(10px);
 }
 
 .scroll-arrow {
   display: block;
   text-align: center;
-  font-size: 2rem;
-  color: white;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 2.5rem;
+  color: #4ade80;
+  text-shadow: 0 2px 8px rgba(74, 222, 128, 0.6);
+  filter: drop-shadow(0 0 10px rgba(74, 222, 128, 0.8));
 }
 
 @keyframes bounce {
@@ -331,10 +342,13 @@ body, html {
 }
 
 @media (max-width: 768px) {
+  .hero-section {
+    padding: 1.5rem 1rem;
+  }
+
   .hero-banner {
-    width: 90vw;
+    width: 90%;
     padding: 1rem 1.5rem;
-    top: 10px;
   }
 
   .hero-banner h1 {
