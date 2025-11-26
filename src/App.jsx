@@ -134,6 +134,9 @@ function App() {
           <h1>David Attenborough 100th Birthday Countdown Clock</h1>
           <VisitorCounter />
         </div>
+        <div className="scroll-indicator" onClick={scrollToWishes}>
+          <span className="scroll-indicator-text">✨ Share a Birthday Wish</span>
+        </div>
       </div>
       <div className="image-grid">
         {shuffledImages.map((image, index) => (
@@ -180,11 +183,6 @@ function App() {
               🎂 Celebrate Now!
             </button>
           )}
-        </div>
-
-        <div className="scroll-indicator" onClick={scrollToWishes}>
-          <span className="scroll-indicator-text">Share a Birthday Wish</span>
-          <span className="scroll-arrow">↓</span>
         </div>
       </div>
       <BirthdayWishes />
