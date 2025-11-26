@@ -1,0 +1,41 @@
+.visitor-counter {
+  text-align: center;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.visitor-count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.visitor-count.loading {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.count-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2d5016;
+  line-height: 1;
+}
+
+.count-label {
+  font-size: 0.9rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .count-number {
+    font-size: 2rem;
+  }
+
+  .count-label {
+    font-size: 0.8rem;
+  }
+}

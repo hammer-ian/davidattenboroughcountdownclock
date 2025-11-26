@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import VisitorCounter from './components/VisitorCounter'
+import BirthdayWishes from './components/BirthdayWishes'
 
 function App() {
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft())
@@ -31,8 +33,8 @@ function App() {
   // Swap two images at specific indices
   function swapTwoImages(array, index1, index2) {
     const newArray = [...array]
-    // Swap the two images at the specified indices
-    ;[newArray[index1], newArray[index2]] = [newArray[index2], newArray[index1]]
+      // Swap the two images at the specified indices
+      ;[newArray[index1], newArray[index2]] = [newArray[index2], newArray[index1]]
     return newArray
   }
 
@@ -41,7 +43,7 @@ function App() {
     const newArray = [...array]
     for (let i = newArray.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
-      ;[newArray[i], newArray[j]] = [newArray[j], newArray[i]]
+        ;[newArray[i], newArray[j]] = [newArray[j], newArray[i]]
     }
     return newArray
   }
@@ -122,57 +124,59 @@ function App() {
     <>
       <div className="hero-banner">
         <h1>David Attenborough 100th Birthday Countdown Clock</h1>
+        <VisitorCounter />
       </div>
       <div className="image-grid">
-      {shuffledImages.map((image, index) => (
-        <div
-          key={index}
-          className={`grid-item ${fadingIndices.includes(index) ? 'fade-out' : 'fade-in'}`}
-        >
-          <img
-            src={`/Images/attenborough/${image}`}
-            alt={`David Attenborough ${index + 1}`}
-          />
-        </div>
-      ))}
+        {shuffledImages.map((image, index) => (
+          <div
+            key={index}
+            className={`grid-item ${fadingIndices.includes(index) ? 'fade-out' : 'fade-in'}`}
+          >
+            <img
+              src={`/Images/attenborough/${image}`}
+              alt={`David Attenborough ${index + 1}`}
+            />
+          </div>
+        ))}
 
-      <div className="countdown-clock">
-        <h1>Countdown Clock!</h1>
-        {isCelebrating && (
-          <div className="celebration-message">
-            <h2>🎉 Happy 100th Birthday Sir David! 🎉</h2>
-            <p>Thank you for a century of wonder and inspiration!</p>
+        <div className="countdown-clock">
+
+          {isCelebrating && (
+            <div className="celebration-message">
+              <h2>🎉 Happy 100th Birthday Sir David! 🎉</h2>
+              <p>Thank you for a century of wonder and inspiration!</p>
+            </div>
+          )}
+          <div className="countdown">
+            <div className="time-unit">
+              <span className="number">{displayTime.days}</span>
+              <span className="label">Days</span>
+            </div>
+            <div className="time-unit">
+              <span className="number">{displayTime.hours}</span>
+              <span className="label">Hours</span>
+            </div>
+            <div className="time-unit">
+              <span className="number">{displayTime.minutes}</span>
+              <span className="label">Minutes</span>
+            </div>
+            <div className="time-unit">
+              <span className="number">{displayTime.seconds}</span>
+              <span className="label">Seconds</span>
+            </div>
           </div>
-        )}
-        <div className="countdown">
-          <div className="time-unit">
-            <span className="number">{displayTime.days}</span>
-            <span className="label">Days</span>
-          </div>
-          <div className="time-unit">
-            <span className="number">{displayTime.hours}</span>
-            <span className="label">Hours</span>
-          </div>
-          <div className="time-unit">
-            <span className="number">{displayTime.minutes}</span>
-            <span className="label">Minutes</span>
-          </div>
-          <div className="time-unit">
-            <span className="number">{displayTime.seconds}</span>
-            <span className="label">Seconds</span>
-          </div>
+          <p className="date">May 8, 2026</p>
+          {!isCelebrating && (
+            <button className="celebrate-button" onClick={triggerCelebration}>
+              🎂 Celebrate Now!
+            </button>
+          )}
         </div>
-        <p className="date">May 8, 2026</p>
-        {!isCelebrating && (
-          <button className="celebrate-button" onClick={triggerCelebration}>
-            🎂 Celebrate Now!
-          </button>
-        )}
       </div>
-    </div>
-    <footer className="footer">
-      By Keira Hamilton
-    </footer>
+      <BirthdayWishes />
+      <footer className="footer">
+        By Keira Hamilton
+      </footer>
     </>
   )
 }
