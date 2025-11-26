@@ -38,8 +38,16 @@
 .form-group {
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
 }
 
+.form-label {
+  font-size: 1rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.theme-select,
 .name-input {
   padding: 0.75rem;
   font-size: 1rem;
@@ -48,11 +56,18 @@
   transition: border-color 0.3s;
 }
 
+.theme-select {
+  cursor: pointer;
+  background-color: white;
+}
+
+.theme-select:focus,
 .name-input:focus {
   outline: none;
   border-color: #2d5016;
 }
 
+.theme-select:disabled,
 .name-input:disabled {
   background-color: #f5f5f5;
   cursor: not-allowed;

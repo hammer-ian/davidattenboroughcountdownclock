@@ -16,7 +16,13 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'POST') {
-      const { visitorName } = req.body;
+      const { visitorName, theme } = req.body;
+
+      // Randomly select additional attributes to add variety
+      const tones = ['poetic', 'heartfelt', 'playful', 'reflective', 'joyful', 'reverent'];
+      const styles = ['use a nature metaphor', 'be direct and sincere', 'use vivid imagery', 'be brief and powerful', 'express personal impact'];
+      const randomTone = tones[Math.floor(Math.random() * tones.length)];
+      const randomStyle = styles[Math.floor(Math.random() * styles.length)];
 
       // Generate birthday wish using Claude API
       const anthropicApiKey = process.env.ANTHROPIC_API_KEY;
@@ -38,7 +44,7 @@ export default async function handler(req, res) {
           temperature: 1.0,
           messages: [{
             role: 'user',
-            content: `Write exactly one creative, unique sentence (maximum 25 words) wishing Sir David Attenborough a happy 100th birthday. Focus on ONE specific aspect: his voice, documentaries, wildlife passion, conservation work, curiosity, or impact on viewers. Be creative with your style and tone. Output ONLY the wish sentence - no preamble, no "Here's", no explanation.`
+            content: `Write one birthday wish for Sir David Attenborough's 100th birthday (max 20 words). Focus on: ${theme}. Tone: ${randomTone}. Style: ${randomStyle}. Avoid common phrases like "thank you for" or "taught us to". Output ONLY the wish - no preamble, no explanation.`
           }]
         })
       });

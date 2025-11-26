@@ -4,6 +4,7 @@ import './BirthdayWishes.css';
 function BirthdayWishes() {
   const [wishes, setWishes] = useState([]);
   const [visitorName, setVisitorName] = useState('');
+  const [theme, setTheme] = useState('');
   const [loading, setLoading] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState(null);
@@ -44,7 +45,8 @@ function BirthdayWishes() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          visitorName: visitorName.trim() || null
+          visitorName: visitorName.trim() || null,
+          theme: theme || null
         })
       });
 
@@ -59,6 +61,7 @@ function BirthdayWishes() {
 
       // Clear the form
       setVisitorName('');
+      setTheme('');
     } catch (err) {
       console.error('Error generating wish:', err);
       setError('Unable to generate wish. Please try again.');
@@ -88,6 +91,28 @@ function BirthdayWishes() {
         </p>
 
         <form onSubmit={generateWish} className="wish-form">
+          <div className="form-group">
+            <label htmlFor="theme-select" className="form-label">What do you love most about Sir David?</label>
+            <select
+              id="theme-select"
+              value={theme}
+              onChange={(e) => setTheme(e.target.value)}
+              className="theme-select"
+              disabled={generating}
+              required
+            >
+              <option value="">-- Choose a theme --</option>
+              <option value="voice">His iconic voice and narration</option>
+              <option value="documentaries">His groundbreaking documentaries</option>
+              <option value="wildlife">His passion for wildlife</option>
+              <option value="conservation">His conservation work</option>
+              <option value="curiosity">His endless curiosity about nature</option>
+              <option value="education">His ability to educate and inspire</option>
+              <option value="wonder">The wonder he brings to viewers</option>
+              <option value="dedication">His lifetime dedication to our planet</option>
+            </select>
+          </div>
+
           <div className="form-group">
             <input
               type="text"
